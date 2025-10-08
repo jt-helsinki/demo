@@ -1,12 +1,10 @@
-const { withNativeWind } = require("nativewind/metro");
-const {
-  getSentryExpoConfig
-} = require("@sentry/react-native/metro");
+const { getDefaultConfig } = require('expo/metro-config');
+const { withNativeWind } = require('nativewind/metro');
 
-let config = getSentryExpoConfig(__dirname);
+// eslint-disable-next-line no-undef
+const config = getDefaultConfig(__dirname);
 
 module.exports = withNativeWind(config, {
   input: "./src/global.css",
   inlineRem: 16,
-  configPath: "./tailwind.config.js",
 });

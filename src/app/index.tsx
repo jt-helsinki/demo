@@ -2,18 +2,13 @@
 import { useRouter } from 'expo-router';
 import {
   Bluetooth,
-  BluetoothIcon,
   ClipboardClockIcon,
-  Pause,
   PauseIcon,
-  Play,
   PlayIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
-import * as Sentry from '@sentry/react-native';
 import { ReactElement, useEffect, useState } from 'react';
 import { Dimensions, View } from 'react-native';
-import { UserMenu } from '@/components/auth/user-menu';
 import { Button, Icon, Text } from '@/components/nativewindui';
 import { BasicLayout } from '@/components/common/basic-layout';
 import { useApplicationState } from '@/state/application-state';
@@ -21,7 +16,6 @@ import { Logo } from '@/components/common/logo';
 import { useBLE } from '@/components/hooks/use-ble';
 import { useBleState } from '@/state/ble-state';
 import { ErrorBoundary } from '@/components/common/error-boundary';
-import { SfSymbols } from 'rn-icon-mapper';
 
 const SCREEN_OPTIONS = {
   header: () => (
@@ -38,7 +32,7 @@ const SCREEN_OPTIONS = {
 
       {/* Right side (empty space if no button) */}
       <View className="w-12 items-end">
-        <UserMenu />
+
       </View>
     </View>
   ),
@@ -56,28 +50,8 @@ export default function Screen(): ReactElement {
     <ErrorBoundary>
       <BasicLayout headerOptions={SCREEN_OPTIONS}>
         <SessionConnector />
-
-        {/*TODO remove this test button*/}
-        <Button
-          onPress={() => {
-            Sentry.captureException(new Error('First error'));
-          }}>
-          <Text>Cause error</Text>
-        </Button>
       </BasicLayout>
 
-      {!!currentSessionId ? (
-        <View className="absolute bottom-0 left-0 right-0 flex-row items-center justify-around border-t border-gray-200 bg-background p-4">
-          {isPlaying ? (
-            <PauseButton onPress={handleTogglePlay} />
-          ) : (
-            <StartButton onPress={handleTogglePlay} />
-          )}
-          <SessionButton />
-        </View>
-      ) : (
-        <></>
-      )}
     </ErrorBoundary>
   );
 }
@@ -109,9 +83,9 @@ function SessionConnector(): ReactElement {
         </Text>
       </View>
 
-      <View className="mt-8 max-w-sm">
+      <View className="mt-8 max-w-sm mb-8">
         <Button size="sm" onPress={sessionConect}>
-          <Text>Create session connection</Text>
+          <Text>Press to create session connection</Text>
         </Button>
       </View>
       <SensorGrid />
