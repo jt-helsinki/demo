@@ -1,0 +1,6 @@
+vite.*.ts
+vitest.*.ts
+*.js
+*.cjs
+*.mjs
+src/components/ui/*.tsx
